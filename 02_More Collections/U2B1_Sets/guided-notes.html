@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Sets - Guided Notes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 2rem;
+            color: #ccd6f6;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e94560;
+        }
+
+        h1 {
+            color: #e94560;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #8892b0;
+            font-size: 1.1rem;
+        }
+
+        .section {
+            background: linear-gradient(145deg, #2d2d44, #1f1f35);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #3d3d5c;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #3d3d5c;
+        }
+
+        .section-number {
+            background: #e94560;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        h2 {
+            color: #64ffda;
+            font-size: 1.3rem;
+        }
+
+        .description {
+            color: #8892b0;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border-left: 3px solid #e94560;
+        }
+
+        .code-block pre {
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .comment { color: #6a9955; }
+        .keyword { color: #ff79c6; }
+        .string { color: #a8ff78; }
+        .number { color: #f1fa8c; }
+        .function { color: #64ffda; }
+        .builtin { color: #ff79c6; }
+        .output { color: #8892b0; font-style: italic; }
+        .variable { color: #ccd6f6; }
+        .operator { color: #ff6b6b; }
+
+        .note {
+            background: rgba(100, 255, 218, 0.1);
+            border-left: 3px solid #64ffda;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .note-title {
+            color: #64ffda;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .warning {
+            background: rgba(233, 69, 96, 0.1);
+            border-left: 3px solid #e94560;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-title {
+            color: #e94560;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .try-it {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px dashed #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+
+        .try-it-title {
+            color: #ffc107;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #3d3d5c;
+        }
+
+        .comparison-table th {
+            background: #e94560;
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .comparison-table code {
+            background: #0d1117;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #64ffda;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #3d3d5c;
+            color: #8892b0;
+        }
+
+        .visual-diagram {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .venn-container {
+            display: inline-block;
+            position: relative;
+            width: 200px;
+            height: 120px;
+        }
+
+        .venn-circle {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            opacity: 0.6;
+            top: 10px;
+        }
+
+        .venn-a {
+            left: 20px;
+            background: #e94560;
+        }
+
+        .venn-b {
+            left: 80px;
+            background: #64ffda;
+        }
+
+        .venn-label {
+            position: absolute;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .svg-reference {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .svg-reference img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .svg-reference-caption {
+            color: #8892b0;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .svg-toggle {
+            background: #2d2d44;
+            border: 1px solid #4ecca3;
+            color: #4ecca3;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s;
+        }
+
+        .svg-toggle:hover {
+            background: #4ecca3;
+            color: #1a1a2e;
+        }
+
+        .svg-collapsible {
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Python Sets</h1>
+            <p class="subtitle">Guided Notes - Follow along in your Python environment!</p>
+        </header>
+
+        <!-- SECTION 1 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">1</span>
+                <h2>Creating Sets - The Basics</h2>
+            </div>
+            <p class="description">
+                Sets are <strong>unordered collections of unique elements</strong>. 
+                Think of them like a bag where duplicates automatically disappear!
+            </p>
+
+            <div class="svg-reference">
+                <img src="python_sets_1_basics.svg" alt="Python Sets - Creation and Characteristics">
+                <p class="svg-reference-caption">📊 Visual Reference: Set Creation & Characteristics</p>
+            </div>
+
+            <div class="code-block">
+<pre><span class="comment"># ============================================</span>
+<span class="comment"># Creating Sets</span>
+<span class="comment"># ============================================</span>
+
+<span class="comment"># Method 1: Using curly braces {}</span>
+<span class="variable">fruits</span> = {<span class="string">'apple'</span>, <span class="string">'banana'</span>, <span class="string">'cherry'</span>}
+<span class="builtin">print</span>(fruits)  <span class="output"># {'cherry', 'banana', 'apple'} - order may vary!</span>
+
+<span class="comment"># Method 2: Using set() constructor</span>
+<span class="variable">numbers</span> = <span class="builtin">set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>])  <span class="comment"># From a list</span>
+<span class="builtin">print</span>(numbers)  <span class="output"># {1, 2, 3} - duplicates removed!</span>
+
+<span class="comment"># Converting string to set (each character becomes an element)</span>
+<span class="variable">letters</span> = <span class="builtin">set</span>(<span class="string">'hello'</span>)
+<span class="builtin">print</span>(letters)  <span class="output"># {'h', 'e', 'l', 'o'} - only one 'l'!</span></pre>
+            </div>
+
+            <div class="warning">
+                <div class="warning-title">⚠️ Common Mistake: Empty Set</div>
+                <code>{}</code> creates an empty <strong>dictionary</strong>, NOT a set!<br>
+                Use <code>set()</code> to create an empty set.
+            </div>
+
+            <div class="code-block">
+<pre><span class="comment"># Creating an empty set</span>
+<span class="variable">empty_dict</span> = {}        <span class="comment"># This is a DICTIONARY!</span>
+<span class="variable">empty_set</span> = <span class="builtin">set</span>()      <span class="comment"># This is a SET!</span>
+
+<span class="builtin">print</span>(<span class="builtin">type</span>(empty_dict))  <span class="output"># &lt;class 'dict'&gt;</span>
+<span class="builtin">print</span>(<span class="builtin">type</span>(empty_set))   <span class="output"># &lt;class 'set'&gt;</span></pre>
+            </div>
+
+            <div class="try-it">
+                <div class="try-it-title">✏️ Try It Yourself!</div>
+                Create a set called <code>my_hobbies</code> with at least 3 hobbies. 
+                Then try adding a duplicate - what happens?
+            </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">2</span>
+                <h2>Set Characteristics - What Makes Sets Special</h2>
+            </div>
+            <p class="description">
+                Sets have four key characteristics that make them different from lists:
+            </p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Characteristic</th>
+                    <th>Sets</th>
+                    <th>Lists</th>
+                </tr>
+                <tr>
+                    <td><strong>Ordered</strong></td>
+                    <td>❌ No guaranteed order</td>
+                    <td>✅ Maintains insertion order</td>
+                </tr>
+                <tr>
+                    <td><strong>Duplicates</strong></td>
+                    <td>❌ Not allowed</td>
+                    <td>✅ Allowed</td>
+                </tr>
+                <tr>
+                    <td><strong>Indexing</strong></td>
+                    <td>❌ Cannot use <code>[0]</code></td>
+                    <td>✅ Can use <code>[0]</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Membership Test</strong></td>
+                    <td>⚡ O(1) - Super fast!</td>
+                    <td>🐌 O(n) - Slower</td>
+                </tr>
+            </table>
+
+            <div class="code-block">
+<pre><span class="comment"># Demonstrating set characteristics</span>
+<span class="variable">my_set</span> = {<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">6</span>}
+<span class="builtin">print</span>(my_set)  <span class="output"># {1, 2, 3, 4, 5, 6, 9} - sorted? No! Just happens to look that way</span>
+
+<span class="comment"># Cannot index into a set</span>
+<span class="comment"># print(my_set[0])  # TypeError: 'set' object is not subscriptable</span>
+
+<span class="comment"># But you CAN iterate through a set</span>
+<span class="keyword">for</span> num <span class="keyword">in</span> my_set:
+    <span class="builtin">print</span>(num, end=<span class="string">' '</span>)  <span class="output"># Prints each number (order not guaranteed)</span>
+
+<span class="comment"># Fast membership testing - this is where sets SHINE!</span>
+<span class="builtin">print</span>(<span class="number">5</span> <span class="keyword">in</span> my_set)   <span class="output"># True - checked instantly!</span>
+<span class="builtin">print</span>(<span class="number">10</span> <span class="keyword">in</span> my_set)  <span class="output"># False</span></pre>
+            </div>
+
+            <div class="note">
+                <div class="note-title">💡 Why is membership testing so fast?</div>
+                Sets use a <strong>hash table</strong> internally. Instead of checking every element 
+                (like a list does), it calculates where the element <em>would be</em> and checks directly!
+            </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">3</span>
+                <h2>Modifying Sets - Add & Remove</h2>
+            </div>
+            <p class="description">
+                Sets are mutable - you can add and remove elements after creation.
+            </p>
+
+            <div class="svg-reference">
+                <img src="python_sets_3_methods.svg" alt="Python Sets - Methods for Adding and Removing">
+                <p class="svg-reference-caption">📊 Visual Reference: Set Methods (add, remove, discard, etc.)</p>
+            </div>
+
+            <div class="code-block">
+<pre><span class="comment"># ============================================</span>
+<span class="comment"># Adding Elements</span>
+<span class="comment"># ============================================</span>
+<span class="variable">colors</span> = {<span class="string">'red'</span>, <span class="string">'blue'</span>}
+
+<span class="comment"># add() - Add a single element</span>
+<span class="variable">colors</span>.<span class="function">add</span>(<span class="string">'green'</span>)
+<span class="builtin">print</span>(colors)  <span class="output"># {'red', 'blue', 'green'}</span>
+
+<span class="comment"># Adding a duplicate does nothing (no error!)</span>
+<span class="variable">colors</span>.<span class="function">add</span>(<span class="string">'red'</span>)
+<span class="builtin">print</span>(colors)  <span class="output"># {'red', 'blue', 'green'} - still only one 'red'</span>
+
+<span class="comment"># update() - Add multiple elements from any iterable</span>
+<span class="variable">colors</span>.<span class="function">update</span>([<span class="string">'yellow'</span>, <span class="string">'purple'</span>])
+<span class="builtin">print</span>(colors)  <span class="output"># {'red', 'blue', 'green', 'yellow', 'purple'}</span>
+
+<span class="comment"># You can even update from a string (each char is added)</span>
+<span class="variable">letters</span> = <span class="builtin">set</span>()
+<span class="variable">letters</span>.<span class="function">update</span>(<span class="string">'abc'</span>)
+<span class="builtin">print</span>(letters)  <span class="output"># {'a', 'b', 'c'}</span></pre>
+            </div>
+
+            <div class="code-block">
+<pre><span class="comment"># ============================================</span>
+<span class="comment"># Removing Elements</span>
+<span class="comment"># ============================================</span>
+<span class="variable">fruits</span> = {<span class="string">'apple'</span>, <span class="string">'banana'</span>, <span class="string">'cherry'</span>, <span class="string">'date'</span>}
+
+<span class="comment"># remove() - Remove an element (raises KeyError if not found!)</span>
+<span class="variable">fruits</span>.<span class="function">remove</span>(<span class="string">'banana'</span>)
+<span class="builtin">print</span>(fruits)  <span class="output"># {'apple', 'cherry', 'date'}</span>
+
+<span class="comment"># fruits.remove('mango')  # KeyError: 'mango'</span>
+
+<span class="comment"># discard() - Remove an element (NO error if not found - safer!)</span>
+<span class="variable">fruits</span>.<span class="function">discard</span>(<span class="string">'cherry'</span>)  <span class="comment"># Removes cherry</span>
+<span class="variable">fruits</span>.<span class="function">discard</span>(<span class="string">'mango'</span>)   <span class="comment"># Does nothing, no error!</span>
+<span class="builtin">print</span>(fruits)  <span class="output"># {'apple', 'date'}</span>
+
+<span class="comment"># pop() - Remove and return an ARBITRARY element</span>
+<span class="variable">removed</span> = <span class="variable">fruits</span>.<span class="function">pop</span>()
+<span class="builtin">print</span>(<span class="string">f"Removed: </span>{removed}<span class="string">"</span>)  <span class="output"># Could be 'apple' or 'date'!</span>
+
+<span class="comment"># clear() - Remove ALL elements</span>
+<span class="variable">fruits</span>.<span class="function">clear</span>()
+<span class="builtin">print</span>(fruits)  <span class="output"># set()</span></pre>
+            </div>
+
+            <div class="try-it">
+                <div class="try-it-title">✏️ Try It Yourself!</div>
+                Create a set of 5 numbers. Practice using <code>add()</code>, <code>remove()</code>, 
+                and <code>discard()</code>. What happens when you try to remove something that isn't there?
+            </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">4</span>
+                <h2>Set Operations - The Power of Sets!</h2>
+            </div>
+            <p class="description">
+                This is where sets really shine! Mathematical set operations let you compare and combine sets easily.
+            </p>
+
+            <div class="svg-reference">
+                <img src="python_sets_2_operations.svg" alt="Python Sets - Operations with Venn Diagrams">
+                <p class="svg-reference-caption">📊 Visual Reference: Set Operations (Union, Intersection, Difference)</p>
+            </div>
+
+            <div class="code-block">
+<pre><span class="comment"># Let's work with two sets</span>
+<span class="variable">A</span> = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>}
+<span class="variable">B</span> = {<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>}
+
+<span class="comment"># ============================================</span>
+<span class="comment"># UNION (|) - All elements from BOTH sets</span>
+<span class="comment"># ============================================</span>
+<span class="builtin">print</span>(<span class="variable">A</span> <span class="operator">|</span> <span class="variable">B</span>)            <span class="output"># {1, 2, 3, 4, 5, 6}</span>
+<span class="builtin">print</span>(<span class="variable">A</span>.<span class="function">union</span>(<span class="variable">B</span>))       <span class="output"># {1, 2, 3, 4, 5, 6}</span>
+
+<span class="comment"># ============================================</span>
+<span class="comment"># INTERSECTION (&) - Only elements in BOTH sets</span>
+<span class="comment"># ============================================</span>
+<span class="builtin">print</span>(<span class="variable">A</span> <span class="operator">&</span> <span class="variable">B</span>)            <span class="output"># {3, 4}</span>
+<span class="builtin">print</span>(<span class="variable">A</span>.<span class="function">intersection</span>(<span class="variable">B</span>)) <span class="output"># {3, 4}</span>
+
+<span class="comment"># ============================================</span>
+<span class="comment"># DIFFERENCE (-) - Elements in A but NOT in B</span>
+<span class="comment"># ============================================</span>
+<span class="builtin">print</span>(<span class="variable">A</span> <span class="operator">-</span> <span class="variable">B</span>)            <span class="output"># {1, 2}</span>
+<span class="builtin">print</span>(<span class="variable">A</span>.<span class="function">difference</span>(<span class="variable">B</span>))   <span class="output"># {1, 2}</span>
+<span class="builtin">print</span>(<span class="variable">B</span> <span class="operator">-</span> <span class="variable">A</span>)            <span class="output"># {5, 6} - Order matters!</span>
+
+<span class="comment"># ============================================</span>
+<span class="comment"># SYMMETRIC DIFFERENCE (^) - Elements in A OR B, but NOT both</span>
+<span class="comment"># ============================================</span>
+<span class="builtin">print</span>(<span class="variable">A</span> <span class="operator">^</span> <span class="variable">B</span>)            <span class="output"># {1, 2, 5, 6}</span>
+<span class="builtin">print</span>(<span class="variable">A</span>.<span class="function">symmetric_difference</span>(<span class="variable">B</span>))  <span class="output"># {1, 2, 5, 6}</span></pre>
+            </div>
+
+            <div class="note">
+                <div class="note-title">💡 Operators vs Methods</div>
+                <strong>Operators</strong> (<code>|</code>, <code>&</code>, <code>-</code>, <code>^</code>) 
+                require both sides to be sets.<br>
+                <strong>Methods</strong> (<code>.union()</code>, etc.) can accept any iterable (list, tuple, etc.)!
+            </div>
+
+            <div class="code-block">
+<pre><span class="comment"># Method advantage: Works with any iterable!</span>
+<span class="variable">my_set</span> = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+<span class="variable">my_list</span> = [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]
+
+<span class="builtin">print</span>(<span class="variable">my_set</span>.<span class="function">union</span>(<span class="variable">my_list</span>))  <span class="output"># {1, 2, 3, 4, 5} - Works!</span>
+<span class="comment"># print(my_set | my_list)  # TypeError! Can't use | with a list</span></pre>
+            </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">5</span>
+                <h2>Set Comparisons - Subsets & Supersets</h2>
+            </div>
+            <p class="description">
+                Check relationships between sets - is one contained within another?
+            </p>
+
+            <div class="svg-reference">
+                <img src="python_sets_4_comparisons.svg" alt="Python Sets - Subset and Superset Comparisons">
+                <p class="svg-reference-caption">📊 Visual Reference: Set Comparisons (Subset, Superset, Disjoint)</p>
+            </div>
+
+            <div class="code-block">
+<pre><span class="variable">small</span> = {<span class="number">1</span>, <span class="number">2</span>}
+<span class="variable">big</span> = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>}
+<span class="variable">same</span> = {<span class="number">1</span>, <span class="number">2</span>}
+<span class="variable">different</span> = {<span class="number">5</span>, <span class="number">6</span>}
+
+<span class="comment"># issubset() - Is every element of small also in big?</span>
+<span class="builtin">print</span>(<span class="variable">small</span>.<span class="function">issubset</span>(<span class="variable">big</span>))     <span class="output"># True - {1,2} ⊆ {1,2,3,4}</span>
+<span class="builtin">print</span>(<span class="variable">small</span> <span class="operator">&lt;=</span> <span class="variable">big</span>)            <span class="output"># True - same thing with operator</span>
+
+<span class="comment"># issuperset() - Does big contain all elements of small?</span>
+<span class="builtin">print</span>(<span class="variable">big</span>.<span class="function">issuperset</span>(<span class="variable">small</span>))   <span class="output"># True - {1,2,3,4} ⊇ {1,2}</span>
+<span class="builtin">print</span>(<span class="variable">big</span> <span class="operator">&gt;=</span> <span class="variable">small</span>)            <span class="output"># True - same thing with operator</span>
+
+<span class="comment"># Proper subset/superset (must be different sizes)</span>
+<span class="builtin">print</span>(<span class="variable">small</span> <span class="operator">&lt;</span> <span class="variable">big</span>)             <span class="output"># True - proper subset</span>
+<span class="builtin">print</span>(<span class="variable">small</span> <span class="operator">&lt;</span> <span class="variable">same</span>)            <span class="output"># False - same size!</span>
+<span class="builtin">print</span>(<span class="variable">small</span> <span class="operator">&lt;=</span> <span class="variable">same</span>)           <span class="output"># True - subset (can be equal)</span>
+
+<span class="comment"># isdisjoint() - Do the sets share ANY elements?</span>
+<span class="builtin">print</span>(<span class="variable">small</span>.<span class="function">isdisjoint</span>(<span class="variable">different</span>))  <span class="output"># True - no shared elements</span>
+<span class="builtin">print</span>(<span class="variable">small</span>.<span class="function">isdisjoint</span>(<span class="variable">big</span>))        <span class="output"># False - they share 1 and 2</span></pre>
+            </div>
+        </div>
+
+        <!-- SECTION 6 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">6</span>
+                <h2>Practical Examples - Real World Uses</h2>
+            </div>
+            <p class="description">
+                Let's see sets in action with common programming tasks!
+            </p>
+
+            <div class="code-block">
+<pre><span class="comment"># ============================================</span>
+<span class="comment"># Example 1: Remove Duplicates from a List</span>
+<span class="comment"># ============================================</span>
+<span class="variable">names</span> = [<span class="string">'alice'</span>, <span class="string">'bob'</span>, <span class="string">'alice'</span>, <span class="string">'carol'</span>, <span class="string">'bob'</span>, <span class="string">'alice'</span>]
+<span class="variable">unique_names</span> = <span class="builtin">list</span>(<span class="builtin">set</span>(<span class="variable">names</span>))
+<span class="builtin">print</span>(unique_names)  <span class="output"># ['carol', 'alice', 'bob'] - order may vary!</span>
+
+<span class="comment"># ============================================</span>
+<span class="comment"># Example 2: Find Common Friends</span>
+<span class="comment"># ============================================</span>
+<span class="variable">alice_friends</span> = {<span class="string">'bob'</span>, <span class="string">'carol'</span>, <span class="string">'dave'</span>, <span class="string">'eve'</span>}
+<span class="variable">bob_friends</span> = {<span class="string">'alice'</span>, <span class="string">'carol'</span>, <span class="string">'frank'</span>, <span class="string">'eve'</span>}
+
+<span class="variable">mutual_friends</span> = <span class="variable">alice_friends</span> <span class="operator">&</span> <span class="variable">bob_friends</span>
+<span class="builtin">print</span>(<span class="string">f"Mutual friends: </span>{mutual_friends}<span class="string">"</span>)  <span class="output"># {'carol', 'eve'}</span>
+
+<span class="comment"># ============================================</span>
+<span class="comment"># Example 3: Fast Membership Checking</span>
+<span class="comment"># ============================================</span>
+<span class="variable">valid_users</span> = {<span class="string">'admin'</span>, <span class="string">'moderator'</span>, <span class="string">'user'</span>, <span class="string">'guest'</span>}
+
+<span class="keyword">def</span> <span class="function">check_role</span>(role):
+    <span class="keyword">if</span> role <span class="keyword">in</span> valid_users:  <span class="comment"># O(1) - instant!</span>
+        <span class="builtin">print</span>(<span class="string">f"✅ '</span>{role}<span class="string">' is a valid role"</span>)
+    <span class="keyword">else</span>:
+        <span class="builtin">print</span>(<span class="string">f"❌ '</span>{role}<span class="string">' is NOT valid"</span>)
+
+<span class="function">check_role</span>(<span class="string">'admin'</span>)    <span class="output"># ✅ 'admin' is a valid role</span>
+<span class="function">check_role</span>(<span class="string">'hacker'</span>)   <span class="output"># ❌ 'hacker' is NOT valid</span>
+
+<span class="comment"># ============================================</span>
+<span class="comment"># Example 4: Set Comprehension</span>
+<span class="comment"># ============================================</span>
+<span class="comment"># Just like list comprehension, but with {}</span>
+<span class="variable">squares</span> = {x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">1</span>, <span class="number">6</span>)}
+<span class="builtin">print</span>(squares)  <span class="output"># {1, 4, 9, 16, 25}</span>
+
+<span class="comment"># With condition</span>
+<span class="variable">evens</span> = {x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">10</span>) <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">0</span>}
+<span class="builtin">print</span>(evens)  <span class="output"># {0, 2, 4, 6, 8}</span></pre>
+            </div>
+
+            <div class="try-it">
+                <div class="try-it-title">✏️ Try It Yourself!</div>
+                You have two lists of favorite movies from two friends:<br>
+                <code>friend1 = ['Inception', 'Avatar', 'Titanic', 'Matrix']</code><br>
+                <code>friend2 = ['Avatar', 'Jaws', 'Matrix', 'Alien']</code><br><br>
+                Use sets to find: (1) Movies they both like, (2) All unique movies, (3) Movies only friend1 likes
+            </div>
+        </div>
+
+        <!-- SECTION 7 -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">7</span>
+                <h2>Frozenset - Immutable Sets</h2>
+            </div>
+            <p class="description">
+                Sometimes you need a set that can't be changed. Enter <code>frozenset</code>!
+            </p>
+
+            <div class="svg-reference">
+                <img src="python_sets_5_frozensets.svg" alt="Python Frozensets - Immutable Sets">
+                <p class="svg-reference-caption">📊 Visual Reference: Frozensets (Immutable Sets)</p>
+            </div>
+
+            <div class="code-block">
+<pre><span class="comment"># Creating a frozenset</span>
+<span class="variable">immutable</span> = <span class="builtin">frozenset</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
+<span class="builtin">print</span>(immutable)  <span class="output"># frozenset({1, 2, 3})</span>
+
+<span class="comment"># Cannot modify!</span>
+<span class="comment"># immutable.add(4)  # AttributeError: no 'add' method</span>
+
+<span class="comment"># Why use frozenset?</span>
+<span class="comment"># 1. Can be used as dictionary keys</span>
+<span class="variable">groups</span> = {
+    <span class="builtin">frozenset</span>([<span class="string">'alice'</span>, <span class="string">'bob'</span>]): <span class="string">'Team A'</span>,
+    <span class="builtin">frozenset</span>([<span class="string">'carol'</span>, <span class="string">'dave'</span>]): <span class="string">'Team B'</span>
+}
+
+<span class="comment"># 2. Can be elements in another set</span>
+<span class="variable">set_of_sets</span> = {<span class="builtin">frozenset</span>([<span class="number">1</span>, <span class="number">2</span>]), <span class="builtin">frozenset</span>([<span class="number">3</span>, <span class="number">4</span>])}
+<span class="builtin">print</span>(set_of_sets)  <span class="output"># {frozenset({1, 2}), frozenset({3, 4})}</span></pre>
+            </div>
+
+            <div class="note">
+                <div class="note-title">💡 Remember!</div>
+                Regular sets can't be dictionary keys or set elements because they're mutable (changeable).
+                Frozensets can because they're immutable (unchangeable) and therefore hashable!
+            </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section" style="border: 2px solid #e94560;">
+            <div class="section-header">
+                <span class="section-number">📝</span>
+                <h2>Quick Reference Summary</h2>
+            </div>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Operation</th>
+                    <th>Operator</th>
+                    <th>Method</th>
+                    <th>Result</th>
+                </tr>
+                <tr>
+                    <td>Union</td>
+                    <td><code>A | B</code></td>
+                    <td><code>A.union(B)</code></td>
+                    <td>All elements from both</td>
+                </tr>
+                <tr>
+                    <td>Intersection</td>
+                    <td><code>A & B</code></td>
+                    <td><code>A.intersection(B)</code></td>
+                    <td>Only common elements</td>
+                </tr>
+                <tr>
+                    <td>Difference</td>
+                    <td><code>A - B</code></td>
+                    <td><code>A.difference(B)</code></td>
+                    <td>In A but not B</td>
+                </tr>
+                <tr>
+                    <td>Symmetric Diff</td>
+                    <td><code>A ^ B</code></td>
+                    <td><code>A.symmetric_difference(B)</code></td>
+                    <td>In A or B, not both</td>
+                </tr>
+                <tr>
+                    <td>Subset</td>
+                    <td><code>A <= B</code></td>
+                    <td><code>A.issubset(B)</code></td>
+                    <td>True if A ⊆ B</td>
+                </tr>
+                <tr>
+                    <td>Superset</td>
+                    <td><code>A >= B</code></td>
+                    <td><code>A.issuperset(B)</code></td>
+                    <td>True if A ⊇ B</td>
+                </tr>
+            </table>
+        </div>
+
+        <footer>
+            <p>🐍 Python Sets - Now you're ready for the activity! 🎯</p>
+        </footer>
+    </div>
+</body>
+</html>

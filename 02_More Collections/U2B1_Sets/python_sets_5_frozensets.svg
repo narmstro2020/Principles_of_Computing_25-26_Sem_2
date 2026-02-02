@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 820">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="50%" style="stop-color:#16213e"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e94560"/>
+      <stop offset="100%" style="stop-color:#ff6b6b"/>
+    </linearGradient>
+    <linearGradient id="codeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d2d44"/>
+      <stop offset="100%" style="stop-color:#1f1f32"/>
+    </linearGradient>
+    <linearGradient id="frostGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#89CFF0" stop-opacity="0.3"/>
+      <stop offset="100%" style="stop-color:#B6D0E2" stop-opacity="0.1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softShadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <filter id="frost">
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="900" height="820" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative grid pattern -->
+  <g opacity="0.05">
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#fff" stroke-width="1"/>
+    </pattern>
+    <rect width="900" height="820" fill="url(#grid)"/>
+  </g>
+  
+  <!-- Title Section -->
+  <text x="450" y="55" text-anchor="middle" font-family="'Courier New', monospace" font-size="32" font-weight="bold" fill="url(#accentGrad)" filter="url(#glow)">Python Sets</text>
+  <text x="450" y="85" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="16" fill="#8892b0">Part 5: Frozensets &amp; Practical Use Cases</text>
+  
+  <!-- Decorative line -->
+  <rect x="150" y="100" width="600" height="2" fill="url(#accentGrad)" rx="1"/>
+  
+  <!-- Frozenset Section -->
+  <g transform="translate(40, 125)">
+    <rect width="820" height="180" rx="12" fill="url(#codeGrad)" filter="url(#softShadow)"/>
+    <rect x="0" y="0" width="820" height="40" rx="12" fill="#89CFF0" opacity="0.25"/>
+    <rect x="0" y="28" width="820" height="12" fill="url(#codeGrad)"/>
+    
+    <circle cx="20" cy="20" r="6" fill="#ff5f56"/>
+    <circle cx="40" cy="20" r="6" fill="#ffbd2e"/>
+    <circle cx="60" cy="20" r="6" fill="#27ca40"/>
+    
+    <text x="410" y="25" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#89CFF0">❄️ frozenset — Immutable Sets</text>
+    
+    <!-- Left side: creation -->
+    <text x="30" y="65" font-family="'Courier New', monospace" font-size="12" fill="#64ffda"># Creating frozensets</text>
+    <text x="30" y="85" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">fs = <tspan fill="#ff79c6">frozenset</tspan>([<tspan fill="#f1fa8c">1</tspan>, <tspan fill="#f1fa8c">2</tspan>, <tspan fill="#f1fa8c">3</tspan>])</text>
+    <text x="30" y="105" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">fs = <tspan fill="#ff79c6">frozenset</tspan>({<tspan fill="#a8ff78">'a'</tspan>, <tspan fill="#a8ff78">'b'</tspan>})</text>
+    
+    <text x="30" y="135" font-family="'Courier New', monospace" font-size="12" fill="#64ffda"># Cannot modify!</text>
+    <text x="30" y="155" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">fs.<tspan fill="#ff79c6">add</tspan>(<tspan fill="#f1fa8c">4</tspan>)  <tspan fill="#ff5f56"># AttributeError!</tspan></text>
+    <text x="30" y="175" font-family="'Courier New', monospace" font-size="11" fill="#8892b0"># No add, remove, discard, pop, clear, update</text>
+    
+    <!-- Right side: why use -->
+    <text x="420" y="65" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="600" fill="#89CFF0">Why use frozenset?</text>
+    
+    <text x="420" y="90" font-family="'Courier New', monospace" font-size="12" fill="#64ffda"># Can be dictionary keys</text>
+    <text x="420" y="110" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">d = {<tspan fill="#ff79c6">frozenset</tspan>([<tspan fill="#f1fa8c">1</tspan>,<tspan fill="#f1fa8c">2</tspan>]): <tspan fill="#a8ff78">'value'</tspan>}</text>
+    
+    <text x="420" y="140" font-family="'Courier New', monospace" font-size="12" fill="#64ffda"># Can be set elements</text>
+    <text x="420" y="160" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">set_of_sets = {<tspan fill="#ff79c6">frozenset</tspan>([<tspan fill="#f1fa8c">1</tspan>]), <tspan fill="#ff79c6">frozenset</tspan>([<tspan fill="#f1fa8c">2</tspan>])}</text>
+    
+    <text x="420" y="185" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8892b0">✓ Hashable • ✓ Immutable • ✓ All read operations work</text>
+  </g>
+  
+  <!-- Use Case 1: Remove Duplicates -->
+  <g transform="translate(40, 325)">
+    <rect width="400" height="150" rx="12" fill="url(#codeGrad)" filter="url(#softShadow)"/>
+    <rect x="0" y="0" width="400" height="40" rx="12" fill="#a8ff78" opacity="0.2"/>
+    <rect x="0" y="28" width="400" height="12" fill="url(#codeGrad)"/>
+    
+    <circle cx="20" cy="20" r="6" fill="#ff5f56"/>
+    <circle cx="40" cy="20" r="6" fill="#ffbd2e"/>
+    <circle cx="60" cy="20" r="6" fill="#27ca40"/>
+    
+    <text x="200" y="25" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#a8ff78">🔧 Remove Duplicates</text>
+    
+    <text x="20" y="65" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">names = [<tspan fill="#a8ff78">'alice'</tspan>, <tspan fill="#a8ff78">'bob'</tspan>, <tspan fill="#a8ff78">'alice'</tspan>, <tspan fill="#a8ff78">'carol'</tspan>]</text>
+    <text x="20" y="90" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">unique = <tspan fill="#ff79c6">list</tspan>(<tspan fill="#ff79c6">set</tspan>(names))</text>
+    <text x="20" y="115" font-family="'Courier New', monospace" font-size="12" fill="#64ffda"># ['alice', 'bob', 'carol']</text>
+    
+    <text x="20" y="145" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8892b0">⚠️ Order may change! Use dict.fromkeys() to preserve</text>
+  </g>
+  
+  <!-- Use Case 2: Membership Testing -->
+  <g transform="translate(460, 325)">
+    <rect width="400" height="150" rx="12" fill="url(#codeGrad)" filter="url(#softShadow)"/>
+    <rect x="0" y="0" width="400" height="40" rx="12" fill="#64ffda" opacity="0.2"/>
+    <rect x="0" y="28" width="400" height="12" fill="url(#codeGrad)"/>
+    
+    <circle cx="20" cy="20" r="6" fill="#ff5f56"/>
+    <circle cx="40" cy="20" r="6" fill="#ffbd2e"/>
+    <circle cx="60" cy="20" r="6" fill="#27ca40"/>
+    
+    <text x="200" y="25" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#64ffda">⚡ Fast Membership Testing</text>
+    
+    <text x="20" y="65" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">valid = {<tspan fill="#a8ff78">'admin'</tspan>, <tspan fill="#a8ff78">'user'</tspan>, <tspan fill="#a8ff78">'guest'</tspan>}</text>
+    <text x="20" y="90" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6"><tspan fill="#ff79c6">if</tspan> role <tspan fill="#ff79c6">in</tspan> valid:</text>
+    <text x="20" y="110" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">    allow_access()</text>
+    
+    <text x="20" y="145" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8892b0">O(1) vs O(n) for lists — huge performance gain!</text>
+  </g>
+  
+  <!-- Use Case 3: Find Common/Different -->
+  <g transform="translate(40, 495)">
+    <rect width="400" height="175" rx="12" fill="url(#codeGrad)" filter="url(#softShadow)"/>
+    <rect x="0" y="0" width="400" height="40" rx="12" fill="#f1fa8c" opacity="0.2"/>
+    <rect x="0" y="28" width="400" height="12" fill="url(#codeGrad)"/>
+    
+    <circle cx="20" cy="20" r="6" fill="#ff5f56"/>
+    <circle cx="40" cy="20" r="6" fill="#ffbd2e"/>
+    <circle cx="60" cy="20" r="6" fill="#27ca40"/>
+    
+    <text x="200" y="25" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#f1fa8c">🔍 Find Common/Different Items</text>
+    
+    <text x="20" y="60" font-family="'Courier New', monospace" font-size="11" fill="#ccd6f6">team_a = {<tspan fill="#a8ff78">'alice'</tspan>, <tspan fill="#a8ff78">'bob'</tspan>, <tspan fill="#a8ff78">'carol'</tspan>}</text>
+    <text x="20" y="80" font-family="'Courier New', monospace" font-size="11" fill="#ccd6f6">team_b = {<tspan fill="#a8ff78">'bob'</tspan>, <tspan fill="#a8ff78">'dave'</tspan>, <tspan fill="#a8ff78">'eve'</tspan>}</text>
+    
+    <text x="20" y="105" font-family="'Courier New', monospace" font-size="11" fill="#64ffda"># Shared members</text>
+    <text x="20" y="123" font-family="'Courier New', monospace" font-size="11" fill="#ccd6f6">team_a &amp; team_b  <tspan fill="#8892b0"># {'bob'}</tspan></text>
+    
+    <text x="20" y="148" font-family="'Courier New', monospace" font-size="11" fill="#64ffda"># Only in team_a</text>
+    <text x="20" y="166" font-family="'Courier New', monospace" font-size="11" fill="#ccd6f6">team_a - team_b  <tspan fill="#8892b0"># {'alice', 'carol'}</tspan></text>
+  </g>
+  
+  <!-- Use Case 4: Set Comprehensions -->
+  <g transform="translate(460, 495)">
+    <rect width="400" height="175" rx="12" fill="url(#codeGrad)" filter="url(#softShadow)"/>
+    <rect x="0" y="0" width="400" height="40" rx="12" fill="#ff79c6" opacity="0.2"/>
+    <rect x="0" y="28" width="400" height="12" fill="url(#codeGrad)"/>
+    
+    <circle cx="20" cy="20" r="6" fill="#ff5f56"/>
+    <circle cx="40" cy="20" r="6" fill="#ffbd2e"/>
+    <circle cx="60" cy="20" r="6" fill="#27ca40"/>
+    
+    <text x="200" y="25" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#ff79c6">✨ Set Comprehensions</text>
+    
+    <text x="20" y="65" font-family="'Courier New', monospace" font-size="12" fill="#64ffda"># Same syntax as list comprehensions</text>
+    <text x="20" y="88" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">squares = {x**<tspan fill="#f1fa8c">2</tspan> <tspan fill="#ff79c6">for</tspan> x <tspan fill="#ff79c6">in</tspan> <tspan fill="#ff79c6">range</tspan>(<tspan fill="#f1fa8c">5</tspan>)}</text>
+    <text x="20" y="108" font-family="'Courier New', monospace" font-size="12" fill="#8892b0"># {0, 1, 4, 9, 16}</text>
+    
+    <text x="20" y="138" font-family="'Courier New', monospace" font-size="12" fill="#64ffda"># With condition</text>
+    <text x="20" y="158" font-family="'Courier New', monospace" font-size="12" fill="#ccd6f6">evens = {x <tspan fill="#ff79c6">for</tspan> x <tspan fill="#ff79c6">in</tspan> nums <tspan fill="#ff79c6">if</tspan> x % <tspan fill="#f1fa8c">2</tspan> == <tspan fill="#f1fa8c">0</tspan>}</text>
+  </g>
+  
+  <!-- Set vs List vs Dict comparison -->
+  <g transform="translate(40, 690)">
+    <rect width="820" height="105" rx="12" fill="url(#codeGrad)" filter="url(#softShadow)"/>
+    <rect x="0" y="0" width="820" height="40" rx="12" fill="#e94560" opacity="0.2"/>
+    <rect x="0" y="28" width="820" height="12" fill="url(#codeGrad)"/>
+    
+    <circle cx="20" cy="20" r="6" fill="#ff5f56"/>
+    <circle cx="40" cy="20" r="6" fill="#ffbd2e"/>
+    <circle cx="60" cy="20" r="6" fill="#27ca40"/>
+    
+    <text x="410" y="25" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#e94560">When to Use Sets vs Lists vs Dicts</text>
+    
+    <text x="60" y="65" font-family="'Segoe UI', sans-serif" font-size="12" fill="#a8ff78" font-weight="600">Set</text>
+    <text x="60" y="85" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ccd6f6">Unique items, fast lookup, no order needed</text>
+    
+    <text x="330" y="65" font-family="'Segoe UI', sans-serif" font-size="12" fill="#64ffda" font-weight="600">List</text>
+    <text x="330" y="85" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ccd6f6">Ordered, duplicates OK, index access needed</text>
+    
+    <text x="600" y="65" font-family="'Segoe UI', sans-serif" font-size="12" fill="#f1fa8c" font-weight="600">Dict</text>
+    <text x="600" y="85" font-family="'Segoe UI', sans-serif" font-size="11" fill="#ccd6f6">Key-value pairs, fast key lookup</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="450" y="815" text-anchor="middle" font-family="'Segoe UI', sans-serif" font-size="11" fill="#8892b0">💡 Sets are perfect for: deduplication, membership tests, mathematical set operations, and tracking "seen" items</text>
+</svg>
